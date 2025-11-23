@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menú de Gastos — Empresa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Small enhancements */
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(6px); }
+    .accent { color: #0ea5a4; }
+  </style>
+</head>
+<body class="bg-[#071021] text-gray-200 antialiased">
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-80 bg-gradient-to-b from-[#031021] to-[#071827] p-6 glass shadow-2xl">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center font-bold text-slate-900">E</div>
+        <div>
+          <h1 class="text-lg font-semibold">Empresa Ejemplo</h1>
+          <p class="text-xs text-slate-400">Menú de Gastos — Administración</p>
+        </div>
+      </div>
+
+      <nav class="space-y-2" aria-label="Menú de gastos">
+        <button class="w-full flex items-center justify-between py-2 px-3 rounded-md hover:bg-slate-800/40" data-toggle="group" data-target="operativos">
+          <span class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-300" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3h14v2H3V3zM3 9h14v2H3V9zM3 15h14v2H3v-2z" /></svg> Operativos</span>
+          <span class="text-slate-400">▾</span>
+        </button>
+        <div id="operativos" class="ml-3 mt-2 space-y-1 hidden">
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Administración">Administración</a>
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Personal">Personal</a>
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Comunicaciones">Comunicaciones</a>
+        </div>
+
+        <button class="w-full flex items-center justify-between py-2 px-3 rounded-md hover:bg-slate-800/40" data-toggle="group" data-target="comerciales">
+          <span class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-300" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a2 2 0 00-2 2v1H6a2 2 0 00-2 2v7h12V7a2 2 0 00-2-2h-2V4a2 2 0 00-2-2z" /></svg> Comerciales</span>
+          <span class="text-slate-400">▾</span>
+        </button>
+        <div id="comerciales" class="ml-3 mt-2 space-y-1 hidden">
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Publicidad">Publicidad</a>
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Comisiones">Comisiones</a>
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Promociones">Promociones</a>
+        </div>
+
+        <button class="w-full flex items-center justify-between py-2 px-3 rounded-md hover:bg-slate-800/40" data-toggle="group" data-target="logistica">
+          <span class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-300" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3h2l1 2h8l1-2h2v12H3V3z" /></svg> Logísticos</span>
+          <span class="text-slate-400">▾</span>
+        </button>
+        <div id="logistica" class="ml-3 mt-2 space-y-1 hidden">
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Logísticos">Fletes y transporte</a>
+          <a href="#" class="block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Logísticos">Almacenaje</a>
+        </div>
+
+        <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Financieros">Financieros</a>
+        <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Legales & Contables">Legales & Contables</a>
+        <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Tributarios">Tributarios</a>
+        <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Infraestructura">Infraestructura</a>
+        <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-slate-800/40" data-category="Extraordinarios">Extraordinarios</a>
+      </nav>
+
+      <div class="mt-6 pt-4 border-t border-slate-700 text-sm text-slate-400">
+        <p class="mb-2">Filtros rápidos</p>
+        <div class="flex gap-2">
+          <button class="flex-1 py-1 rounded-md bg-slate-800/30" data-filter="30">Últimos 30 días</button>
+          <button class="flex-1 py-1 rounded-md bg-slate-800/30" data-filter="365">Año</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-8">
+      <header class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-semibold">Menú de Gastos</h2>
+        <div class="flex items-center gap-3">
+          <input id="search" type="search" placeholder="Buscar categoría o gasto..." class="px-3 py-2 rounded-md bg-slate-900/40 focus:outline-none" />
+          <button id="btnNew" class="px-4 py-2 rounded-md bg-emerald-500 text-slate-900 font-medium">Nuevo gasto</button>
+        </div>
+      </header>
+
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card example -->
+        <article class="p-4 rounded-2xl glass shadow-lg">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Operativos</h3>
+              <p class="text-sm text-slate-400 mt-1">Gastos del día a día para operar la empresa.</p>
+            </div>
+            <div class="text-sm text-slate-300">Total: <span class="font-semibold">S/ 0.00</span></div>
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex items-center justify-between"><span>Servicios básicos</span><span>S/ —</span></li>
+            <li class="flex items-center justify-between"><span>Alquiler</span><span>S/ —</span></li>
+            <li class="flex items-center justify-between"><span>Materiales de oficina</span><span>S/ —</span></li>
+          </ul>
+
+          <div class="mt-4 flex gap-2">
+            <button class="flex-1 py-2 rounded-md bg-slate-800/30">Ver detalles</button>
+            <button class="py-2 px-3 rounded-md bg-emerald-500 text-slate-900" data-action="add" data-category="Administración">Agregar</button>
+          </div>
+        </article>
+
+        <!-- Repetir para otras categorías (ejemplos estáticos) -->
+        <article class="p-4 rounded-2xl glass shadow-lg">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Comerciales</h3>
+              <p class="text-sm text-slate-400 mt-1">Marketing, publicidad y ventas.</p>
+            </div>
+            <div class="text-sm text-slate-300">Total: <span class="font-semibold">S/ 0.00</span></div>
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex items-center justify-between"><span>Publicidad digital</span><span>S/ —</span></li>
+            <li class="flex items-center justify-between"><span>Comisiones</span><span>S/ —</span></li>
+          </ul>
+
+          <div class="mt-4 flex gap-2">
+            <button class="flex-1 py-2 rounded-md bg-slate-800/30">Ver detalles</button>
+            <button class="py-2 px-3 rounded-md bg-amber-400 text-slate-900" data-action="add" data-category="Publicidad">Agregar</button>
+          </div>
+        </article>
+
+        <article class="p-4 rounded-2xl glass shadow-lg">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Logísticos</h3>
+              <p class="text-sm text-slate-400 mt-1">Fletes, almacenaje y distribución.</p>
+            </div>
+            <div class="text-sm text-slate-300">Total: <span class="font-semibold">S/ 0.00</span></div>
+          </div>
+
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex items-center justify-between"><span>Fletes</span><span>S/ —</span></li>
+            <li class="flex items-center justify-between"><span>Almacenaje</span><span>S/ —</span></li>
+          </ul>
+
+          <div class="mt-4 flex gap-2">
+            <button class="flex-1 py-2 rounded-md bg-slate-800/30">Ver detalles</button>
+            <button class="py-2 px-3 rounded-md bg-sky-400 text-slate-900" data-action="add" data-category="Logísticos">Agregar</button>
+          </div>
+        </article>
+
+      </section>
+
+      <footer class="mt-8 text-sm text-slate-400">Diseñado para integrarse fácilmente a tu ERP o sistema contable.</footer>
+    </main>
+  </div>
+
+  <!-- Modal (hidden by default) -->
+  <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+    <div class="bg-[#071827] rounded-2xl w-full max-w-3xl p-6 glass shadow-xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="modalTitle" class="text-xl font-semibold">Nuevo gasto</h3>
+        <button id="closeModal" class="text-slate-400">✕</button>
+      </div>
+
+      <div id="modalBody" class="space-y-4 max-h-[60vh] overflow-auto">
+        <!-- Form templates inserted via JS -->
+      </div>
+
+      <div class="mt-4 flex justify-end gap-2">
+        <button id="cancel" class="px-4 py-2 rounded-md bg-slate-800/30">Cancelar</button>
+        <button id="save" class="px-4 py-2 rounded-md bg-emerald-500 text-slate-900">Guardar gasto</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar toggles
+    document.querySelectorAll('[data-toggle="group"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (!target) return;
+        target.classList.toggle('hidden');
+        const arrow = btn.querySelector('span:last-child');
+        arrow.textContent = target.classList.contains('hidden') ? '▾' : '▴';
+      });
+    });
+
+    // Categories and their form fields (templates)
+    const templates = {
+      'Administración': `
+        <form data-category="Administración" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" required class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="area" placeholder="Área / Departamento" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <input name="responsable" placeholder="Responsable" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="numero" placeholder="Número de documento" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="comprobante" placeholder="Comprobante (Boleta/Factura)" class="p-2 rounded bg-slate-900/30 w-full" />
+          <textarea name="descripcion" placeholder="Descripción del gasto" class="p-2 rounded bg-slate-900/30 w-full"></textarea>
+          <div class="grid grid-cols-2 gap-3">
+            <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="observaciones" placeholder="Observaciones" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+        </form>
+      `,
+      'Personal': `
+        <form data-category="Personal" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" required class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="nombre" placeholder="Nombre del trabajador" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <select name="tipo" class="p-2 rounded bg-slate-900/30 w-full">
+            <option value="viaticos">Viáticos</option>
+            <option value="movilidad">Movilidad</option>
+            <option value="refrigerio">Refrigerio</option>
+            <option value="uniforme">Uniforme</option>
+            <option value="otro">Otro</option>
+          </select>
+          <textarea name="descripcion" placeholder="Descripción" class="p-2 rounded bg-slate-900/30 w-full"></textarea>
+          <div class="grid grid-cols-2 gap-3">
+            <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="comprobante" placeholder="Comprobante" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+        </form>
+      `,
+      'Comunicaciones': `
+        <form data-category="Comunicaciones" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="servicio" placeholder="Servicio (internet, telefonía...)" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="proveedor" placeholder="Proveedor" class="p-2 rounded bg-slate-900/30 w-full" />
+          <div class="grid grid-cols-2 gap-3">
+            <input name="numero" placeholder="Número de recibo" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="periodo" placeholder="Periodo facturado" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="observaciones" placeholder="Observaciones" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+        </form>
+      `,
+      'Publicidad': `
+        <form data-category="Publicidad" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="campana" placeholder="Campaña" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="medio" placeholder="Medio (Facebook, Google, Impreso...)" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="alcance" placeholder="Alcance estimado" class="p-2 rounded bg-slate-900/30 w-full" />
+          <div class="grid grid-cols-2 gap-3">
+            <input name="comprobante" placeholder="Comprobante" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+        </form>
+      `,
+      'Comisiones': `
+        <form data-category="Comisiones" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="vendedor" placeholder="Vendedor / Responsable" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="tipo" placeholder="Tipo de comisión" class="p-2 rounded bg-slate-900/30 w-full" />
+          <div class="grid grid-cols-3 gap-3">
+            <input name="porcentaje" type="number" step="0.01" placeholder="Porcentaje (%)" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="venta" placeholder="Monto de la venta" type="number" step="0.01" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="monto" placeholder="Monto de la comisión" type="number" step="0.01" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+        </form>
+      `,
+      'Promociones': `
+        <form data-category="Promociones" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="nombre" placeholder="Nombre de la promoción" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="producto" placeholder="Producto o servicio promocionado" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="duracion" placeholder="Duración" class="p-2 rounded bg-slate-900/30 w-full" />
+          <textarea name="descripcion" placeholder="Descripción" class="p-2 rounded bg-slate-900/30 w-full"></textarea>
+          <input name="costo" type="number" step="0.01" placeholder="Costo total" class="p-2 rounded bg-slate-900/30 w-full" />
+        </form>
+      `,
+      'Financieros': `
+        <form data-category="Financieros" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <select name="tipo" class="p-2 rounded bg-slate-900/30 w-full">
+              <option>Transferencia</option>
+              <option>Giro</option>
+              <option>Mantenimiento</option>
+              <option>Depósito</option>
+              <option>Retiro</option>
+              <option>Interés</option>
+            </select>
+          </div>
+          <input name="banco" placeholder="Banco / Entidad" class="p-2 rounded bg-slate-900/30 w-full" />
+          <div class="grid grid-cols-2 gap-3">
+            <input name="numero" placeholder="Número de operación" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="comision" type="number" step="0.01" placeholder="Comisión bancaria" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+        </form>
+      `,
+      'Legales & Contables': `
+        <form data-category="Legales & Contables" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="estudio" placeholder="Estudio / Profesional" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="tipo" placeholder="Tipo de servicio" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="documento" placeholder="Documento asociado" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+        </form>
+      `,
+      'Tributarios': `
+        <form data-category="Tributarios" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="tipo" placeholder="Tipo de tributo (IGV, Renta...)" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="periodo" placeholder="Periodo" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="documento" placeholder="Documento / Constancia" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+        </form>
+      `,
+      'Infraestructura': `
+        <form data-category="Infraestructura" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="area" placeholder="Área (oficina, almacén...)" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <input name="tipo" placeholder="Tipo de gasto (mantenimiento, compra...)" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="proveedor" placeholder="Proveedor" class="p-2 rounded bg-slate-900/30 w-full" />
+          <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+        </form>
+      `,
+      'Extraordinarios': `
+        <form data-category="Extraordinarios" class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <input name="fecha" type="date" class="p-2 rounded bg-slate-900/30 w-full" />
+            <input name="tipo" placeholder="Tipo de gasto" class="p-2 rounded bg-slate-900/30 w-full" />
+          </div>
+          <textarea name="motivo" placeholder="Motivo / Descripción detallada" class="p-2 rounded bg-slate-900/30 w-full"></textarea>
+          <input name="monto" type="number" step="0.01" placeholder="Monto" class="p-2 rounded bg-slate-900/30 w-full" />
+        </form>
+      `
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modalBody');
+      const modalTitle = document.getElementById('modalTitle');
+      const closeModal = document.getElementById('closeModal');
+      const cancelBtn = document.getElementById('cancel');
+      const saveBtn = document.getElementById('save');
+      let currentCategory = null;
+
+      function openFormFor(category) {
+        currentCategory = category;
+        modalTitle.textContent = `Nuevo gasto — ${category}`;
+        modalBody.innerHTML = templates[category] || templates['Administración'];
+        modal.classList.remove('hidden');
+      }
+
+      // Attach click listeners to sidebar links and 'Agregar' buttons
+      document.querySelectorAll('[data-category]').forEach(el => {
+        el.addEventListener('click', e => {
+          e.preventDefault();
+          const cat = el.dataset.category;
+          openFormFor(cat);
+        });
+      });
+
+      document.querySelectorAll('[data-action="add"]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const cat = btn.dataset.category || 'Administración';
+          openFormFor(cat);
+        });
+      });
+
+      // Replace top button to open the category selector modal
+      const btnNew = document.getElementById('btnNew');
+      if (btnNew) btnNew.addEventListener('click', openCategoryModal);
+
+      // Close modal
+      if (closeModal) closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+      if (cancelBtn) cancelBtn.addEventListener('click', () => modal.classList.add('hidden'));
+
+      // Save handler: simple localStorage save and basic validation
+      if (saveBtn) saveBtn.addEventListener('click', () => {
+        const form = modalBody.querySelector('form');
+        if (!form) return alert('No hay formulario activo.');
+        const data = {};
+        new FormData(form).forEach((v,k) => data[k]=v);
+        data.category = currentCategory;
+        data.createdAt = new Date().toISOString();
+
+        // Basic validation: require fecha and monto if present
+        if (!data.fecha) return alert('Ingrese la fecha.');
+        if (!data.monto && data.monto !== '0') {
+          // some forms use 'monto' or 'costo'
+          if (!data.costo && !data.monto && !data.venta) return alert('Ingrese el monto o costo.');
+        }
+
+        // Save to localStorage list 'gastos'
+        const gastos = JSON.parse(localStorage.getItem('gastos') || '[]');
+        gastos.push(data);
+        localStorage.setItem('gastos', JSON.stringify(gastos));
+
+        // simple feedback
+        alert('Gasto guardado en el navegador.');
+        modal.classList.add('hidden');
+        form.reset();
+      });
+
+      // Filters quick buttons
+      document.querySelectorAll('[data-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const days = parseInt(btn.dataset.filter,10);
+          alert('Aplicando filtro por últimos ' + days + ' días (funcionalidad demo).');
+        });
+      });
+
+      // Search (very simple local search)
+      const searchInput = document.getElementById('search');
+      if (searchInput) searchInput.addEventListener('input', e => {
+        const q = e.target.value.toLowerCase();
+        const gastos = JSON.parse(localStorage.getItem('gastos') || '[]');
+        const matches = gastos.filter(g => JSON.stringify(g).toLowerCase().includes(q));
+        console.log('Resultados búsqueda:', matches.length);
+      });
+
+    });
+
+    // Modal Selector de Categorías (functions placed in global scope so buttons in markup can call them)
+    function openCategoryModal() {
+      const el = document.getElementById('categoryModal');
+      if (el) el.classList.remove('hidden');
+    }
+
+    function closeCategoryModal() {
+      const el = document.getElementById('categoryModal');
+      if (el) el.classList.add('hidden');
+    }
+
+    function openFormFromModal() {
+      const sel = document.getElementById('categorySelect');
+      if (!sel) return closeCategoryModal();
+      const map = {
+        administracion: 'Administración',
+        personal: 'Personal',
+        comunicaciones: 'Comunicaciones',
+        publicidad: 'Publicidad',
+        comisiones: 'Comisiones',
+        promociones: 'Promociones',
+        financieros: 'Financieros',
+        legales: 'Legales & Contables',
+        tributarios: 'Tributarios',
+        infraestructura: 'Infraestructura',
+        extraordinarios: 'Extraordinarios',
+        logisticos: 'Logísticos'
+      };
+      const key = map[sel.value] || 'Administración';
+      closeCategoryModal();
+      // open the form using the same function defined inside DOMContentLoaded
+      // ensure we call it after DOMContentLoaded has run
+      setTimeout(() => {
+        // find the openFormFor defined in the closure by reusing the same name via global dispatcher
+        // call the existing handler by creating and dispatching a click on a hidden element
+        // simpler: call a globally exposed function - attach it now if needed
+        if (window._openFormForGlobal) {
+          window._openFormForGlobal(key);
+        } else {
+          // fallback: directly fill modal content
+          const modal = document.getElementById('modal');
+          const modalBody = document.getElementById('modalBody');
+          const modalTitle = document.getElementById('modalTitle');
+          if (modal && modalBody && modalTitle) {
+            modalTitle.textContent = `Nuevo gasto — ${key}`;
+            modalBody.innerHTML = templates[key] || templates['Administración'];
+            modal.classList.remove('hidden');
+          }
+        }
+      }, 50);
+    }
+
+    // Expose a global bridge so modal code can call openFormFor inside DOMContentLoaded
+    // This will be set after DOMContentLoaded runs. If it's not set, fallback logic above will work.
+    window._openFormForGlobal = null;
+
+    // After DOMContentLoaded we assign the real function to the global bridge
+    document.addEventListener('DOMContentLoaded', () => {
+      // find the openFormFor function by creating a small wrapper that calls it via click on a dummy element
+      // But easier: re-define a global function that mirrors the internal one by accessing modal elements
+      window._openFormForGlobal = function(category) {
+        const modal = document.getElementById('modal');
+        const modalBody = document.getElementById('modalBody');
+        const modalTitle = document.getElementById('modalTitle');
+        if (!modal || !modalBody || !modalTitle) return;
+        modalTitle.textContent = `Nuevo gasto — ${category}`;
+        modalBody.innerHTML = templates[category] || templates['Administración'];
+        modal.classList.remove('hidden');
+      };
+    });
+
+  </script>
+
+  <!-- Modal Selector de Categorías -->
+  <div id="categoryModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+      <h2 class="text-xl font-semibold mb-4">Seleccionar Categoría</h2>
+      <select id="categorySelect" class="w-full p-2 border rounded mb-4">
+        <option value="administracion">Administración</option>
+        <option value="personal">Personal</option>
+        <option value="comunicaciones">Comunicaciones</option>
+        <option value="publicidad">Publicidad</option>
+        <option value="comisiones">Comisiones</option>
+        <option value="promociones">Promociones</option>
+        <option value="financieros">Financieros</option>
+        <option value="legales">Legales & Contables</option>
+        <option value="tributarios">Tributarios</option>
+        <option value="infraestructura">Infraestructura</option>
+        <option value="logisticos">Logísticos</option>
+        <option value="extraordinarios">Extraordinarios</option>
+      </select>
+      <div class="flex justify-end gap-2">
+        <button class="px-3 py-1 bg-gray-300 rounded" onclick="closeCategoryModal()">Cancelar</button>
+        <button class="px-3 py-1 bg-blue-600 text-white rounded" onclick="openFormFromModal()">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
